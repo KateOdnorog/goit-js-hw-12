@@ -47,13 +47,14 @@
   letter-spacing: 0.04em;
   color: #fff;
   padding: 0;
+  cursor: pointer;
 }
 
 .btn-search:hover {
   background: #6c8cff;
 }
 
-/*  */
+/* markup  */
 
 .gallery {
   margin: 32px 156px;
@@ -134,7 +135,9 @@
 
 .loader {
   font-size: 24px;
-  display: inline-block;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   font-family: Arial, Helvetica, sans-serif;
   font-weight: bold;
   color: #ff3d00;
@@ -166,4 +169,55 @@
 
 .hidden {
   display: none;
+}
+
+/* btn Load more */
+.container-btn {
+  display: flex;
+  justify-content: center;
+}
+
+.btn-load {
+  border-radius: 8px;
+  border: 1px solid #ffffff;
+  padding: 8px 16px;
+  width: 125px;
+  height: 40px;
+  background: #4e75ff;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1.5;
+  letter-spacing: 0.04em;
+  color: #fff;
+  padding: 5px;
+  cursor: pointer;
+  display: flex;
+  gap: 5px;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.btn-load:hover {
+  background: #6c8cff;
+}
+
+.loader2 {
+  width: 25px;
+  height: 25px;
+  border: 3px solid #fff;
+  border-bottom-color: transparent;
+  border-radius: 50%;
+  display: inline-block;
+  box-sizing: border-box;
+  animation: rotation 1s linear infinite;
+}
+
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }

@@ -49,12 +49,11 @@ export default function createHTML(data) {
   }
 
   const markup = imagesTemplate(data);
-  refs.list.insertAdjacentHTML('afterbegin', markup);
+  refs.list.insertAdjacentHTML('beforeend', markup);
 
   let lightbox = new SimpleLightbox('.gallery a', {
     captionsData: 'alt',
     animationSpeed: 250,
   });
   lightbox.refresh();
-  refs.loader.classList.add('hidden');
 }
