@@ -80,11 +80,11 @@ refs.btnLoadMore.addEventListener('click', inputLoad);
 async function inputLoad() {
   params.page += 1;
   showLoader();
-  checkBtnStatus();
 
   const result = await findImages(params.query, params.page);
   createHTML(result.data.hits);
 
+  checkBtnStatus();
   hideLoader();
 
   scrollPage();
@@ -107,10 +107,12 @@ function clear() {
 
 function showBtnLoadMore() {
   refs.btnLoadMore.classList.remove('hidden');
+  refs.loaderBtn.classList.add('hidden');
 }
 
 function hideBtnLoadMore() {
   refs.btnLoadMore.classList.add('hidden');
+  refs.loaderBtn.classList.remove('hidden');
 }
 
 function checkBtnStatus() {
@@ -133,7 +135,7 @@ function checkBtnStatus() {
 
 function scrollPage() {
   const info = refs.gallery.lastElementChild.getBoundingClientRect();
-  const height = info.height;
+  const height = info.height + 100;
   scrollBy({
     behavior: 'smooth',
     top: height * 3,
