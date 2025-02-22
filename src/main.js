@@ -8,15 +8,15 @@ const refs = {
   form: document.querySelector('.form'),
   btnSearch: document.querySelector('.btn-search'),
   input: document.querySelector('.input-field'),
-  loader: document.querySelector('.loader'),
-  btnLoad: document.querySelector('.btn-load'),
+  loaderImage: document.querySelector('.loader'),
+  btnLoadMore: document.querySelector('.btn-load'),
   gallery: document.querySelector('.gallery'),
   loaderBtn: document.querySelector('.loader2'),
 };
 
 const params = {
   query: null,
-  page: null,
+  page: 1,
   total: null,
   perPage: 40,
 };
@@ -40,7 +40,6 @@ async function handleSubmit(e) {
   }
 
   clear();
-  hideBtnLoad();
   showLoader();
 
   try {
@@ -55,9 +54,11 @@ async function handleSubmit(e) {
         position: 'topRight',
       });
     }
+
     createHTML(result.data.hits);
     params.total = result.data.totalHits;
     checkBtnStatus();
+    console.log(checkBtnStatus);
   } catch {
     clear();
     hideLoader();
@@ -74,49 +75,50 @@ async function handleSubmit(e) {
 }
 
 // ==============================================
-refs.btnLoad.addEventListener('input', inputLoad);
+refs.btnLoadMore.addEventListener('click', inputLoad);
 
-async function inputLoad(e) {
+async function inputLoad() {
   params.page += 1;
-
-  showLoaderBtn();
+  showLoader();
   checkBtnStatus();
 
-  const result = await findImages(params.query, params.page, params.perPage);
+  const result = await findImages(params.query, params.page);
   createHTML(result.data.hits);
 
-  removeLoaderBtn();
+  hideLoader();
 
   scrollPage();
 }
 // ==============================================
 
 function showLoader() {
-  refs.loader.classList.remove('hidden');
+  refs.loaderImage.classList.remove('hidden');
 }
 
 function hideLoader() {
-  refs.loader.classList.add('hidden');
+  refs.loaderImage.classList.add('hidden');
 }
 
 function clear() {
   refs.gallery.innerHTML = '';
 }
 
-function showBtnLoad() {
-  refs.btnLoad.disabled = false;
+// ==============================================
+
+function showBtnLoadMore() {
+  refs.btnLoadMore.classList.remove('hidden');
 }
 
-function hideBtnLoad() {
-  refs.btnLoad.disabled = true;
+function hideBtnLoadMore() {
+  refs.btnLoadMore.classList.add('hidden');
 }
 
 function checkBtnStatus() {
-  const perPage = 40;
+  const perPage = params.perPage;
   const maxPage = Math.ceil(params.total / perPage);
 
   if (params.page >= maxPage) {
-    hideBtnLoad();
+    hideBtnLoadMore();
 
     iziToast.info({
       position: 'topRight',
@@ -124,23 +126,16 @@ function checkBtnStatus() {
       message: `We're sorry, but you've reached the end of search results.`,
     });
   } else {
-    showBtnLoad();
+    showBtnLoadMore();
   }
 }
-
-function showLoaderBtn() {
-  refs.loaderBtn.classList.remove('hidden');
-}
-
-function removeLoaderBtn() {
-  refs.loaderBtn.classList.add('hidden');
-}
+// ==============================================
 
 function scrollPage() {
-  const info = refs.gallery.firstElementChild.getBoundingClientRect();
+  const info = refs.gallery.lastElementChild.getBoundingClientRect();
   const height = info.height;
   scrollBy({
     behavior: 'smooth',
-    top: height * 2,
+    top: height * 3,
   });
 }

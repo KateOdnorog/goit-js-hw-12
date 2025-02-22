@@ -10,7 +10,7 @@ export default async function findImages(query, page, perPage) {
   const params = {
     key: API_KEY,
     q: query,
-    pageSize: perPage,
+    per_page: perPage,
     page: page,
     image_type: 'photo',
     orientation: 'horizontal',
