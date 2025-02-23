@@ -32,7 +32,7 @@ async function handleSubmit(e) {
   params.page = 1;
 
   if (params.query === '') {
-    iziToast.warning({
+    return iziToast.warning({
       position: 'topRight',
       title: 'WARN',
       message: 'You have not specified any search parameters.',
@@ -47,8 +47,7 @@ async function handleSubmit(e) {
     if (result.data.hits.length === 0) {
       clear();
       hideLoader();
-
-      iziToast.error({
+      return iziToast.error({
         title: 'ERROR',
         message: `Sorry, there are no images matching your search query. Please try again!`,
         position: 'topRight',
@@ -58,11 +57,11 @@ async function handleSubmit(e) {
     createHTML(result.data.hits);
     params.total = result.data.totalHits;
     checkBtnStatus();
-  } catch {
+  } catch (error) {
     clear();
     hideLoader();
 
-    iziToast.error({
+    return iziToast.error({
       title: 'ERROR',
       message: `Error fetching images: ${error}`,
       position: 'topRight',
@@ -87,7 +86,7 @@ async function LoadBtn() {
     scrollPage();
   } catch {
     hideLoaderBtn();
-    iziToast.error({
+    return iziToast.error({
       title: 'ERROR',
       message: `Failed to load more images! ${error}`,
       position: 'topRight',
@@ -126,7 +125,7 @@ function checkBtnStatus() {
   if (params.page >= maxPage) {
     hideBtnLoadMore();
 
-    iziToast.info({
+    return iziToast.info({
       position: 'topRight',
       title: 'INFO',
       message: `We're sorry, but you've reached the end of search results.`,
