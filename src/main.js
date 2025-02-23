@@ -58,7 +58,6 @@ async function handleSubmit(e) {
     createHTML(result.data.hits);
     params.total = result.data.totalHits;
     checkBtnStatus();
-    console.log(checkBtnStatus);
   } catch {
     clear();
     hideLoader();
@@ -75,28 +74,28 @@ async function handleSubmit(e) {
 }
 
 // ==============================================
-refs.btnLoadMore.addEventListener('click', inputLoad);
+refs.btnLoadMore.addEventListener('click', LoadBtn);
 
-async function inputLoad() {
+async function LoadBtn() {
   params.page += 1;
-  showLoader();
-
-  const result = await findImages(params.query, params.page);
+  showLoaderBtn();
+  checkBtnStatus();
+  console.log(params.page);
+  const result = await findImages(params.query, params.page, params.perPage);
   createHTML(result.data.hits);
 
-  checkBtnStatus();
-  hideLoader();
+  hideLoaderBtn();
 
   scrollPage();
 }
 // ==============================================
 
 function showLoader() {
-  refs.loaderImage.classList.remove('hidden');
+  refs.loaderImage.classList.remove('visually-hidden');
 }
 
 function hideLoader() {
-  refs.loaderImage.classList.add('hidden');
+  refs.loaderImage.classList.add('visually-hidden');
 }
 
 function clear() {
@@ -106,18 +105,15 @@ function clear() {
 // ==============================================
 
 function showBtnLoadMore() {
-  refs.btnLoadMore.classList.remove('hidden');
-  refs.loaderBtn.classList.add('hidden');
+  refs.btnLoadMore.classList.remove('visually-hidden');
 }
 
 function hideBtnLoadMore() {
-  refs.btnLoadMore.classList.add('hidden');
-  refs.loaderBtn.classList.remove('hidden');
+  refs.btnLoadMore.classList.add('visually-hidden');
 }
 
 function checkBtnStatus() {
-  const perPage = params.perPage;
-  const maxPage = Math.ceil(params.total / perPage);
+  const maxPage = Math.ceil(params.total / params.perPage);
 
   if (params.page >= maxPage) {
     hideBtnLoadMore();
@@ -132,6 +128,14 @@ function checkBtnStatus() {
   }
 }
 // ==============================================
+
+function showLoaderBtn() {
+  refs.loaderBtn.classList.remove('visually-hidden');
+}
+
+function hideLoaderBtn() {
+  refs.loaderBtn.classList.add('visually-hidden');
+}
 
 function scrollPage() {
   const info = refs.gallery.lastElementChild.getBoundingClientRect();

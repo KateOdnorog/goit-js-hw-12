@@ -1,23 +1,29 @@
-.container {
-  width: 371px;
-  height: 40px;
-  display: block;
-  margin: 0 auto;
-}
+/**
+  |============================
+  | include css partials with
+  | default @import url()
+  |============================
+*/
+/* Common styles */
+@import url('./reset.css');
+@import url('./base.css');
+@import url('./container.css');
 
 .form {
-  width: 100%;
-  height: 100%;
+  width: 371px;
+  height: 40px;
   display: flex;
-  justify-content: space-between;
+  gap: 8px;
   align-items: center;
+  justify-content: center;
+  margin: 36px auto 32px;
 }
 
 .input-field {
+  border-radius: 4px;
   width: 272px;
   height: 100%;
   border: 1px solid #808080;
-  padding: 0;
 }
 
 .input-field::placeholder {
@@ -31,6 +37,12 @@
 
 .input-field:hover {
   border-color: #000000;
+}
+
+.input-field:active,
+.input-field:focus {
+  border-color: #4e75ff;
+  outline: none;
 }
 
 .btn-search {
@@ -57,19 +69,13 @@
 /* markup  */
 
 .gallery {
-  margin: 32px 156px;
-  padding: 0;
   width: 1128px;
-  height: 648px;
+  height: 100%;
   display: flex;
   flex-wrap: wrap;
-  column-gap: 24px;
-  row-gap: 24px;
+  gap: 24px;
   justify-content: flex-start;
   align-items: start;
-}
-
-.gallery-link {
 }
 
 .gallery-item {
@@ -92,7 +98,7 @@
   justify-content: space-around;
   gap: 24px;
   height: 48px;
-  width: 358px;
+  width: 100%;
   border: 1px solid #808080;
   position: absolute;
   right: 0;
@@ -167,12 +173,6 @@
   }
 }
 
-/* btn Load more */
-.container-btn {
-  display: flex;
-  justify-content: center;
-}
-
 .btn-load {
   border-radius: 8px;
   border: 1px solid #ffffff;
@@ -188,11 +188,8 @@
   color: #fff;
   padding: 5px;
   cursor: pointer;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 5px;
-  align-items: center;
-  justify-content: space-around;
+  margin: 32px auto;
+  display: block;
 }
 
 .btn-load:hover {
@@ -200,8 +197,8 @@
 }
 
 .loader2 {
-  width: 48px;
-  height: 48px;
+  width: 25px;
+  height: 25px;
   border: 5px solid #fff;
   border-bottom-color: transparent;
   border-radius: 50%;
@@ -217,8 +214,4 @@
   100% {
     transform: rotate(360deg);
   }
-}
-
-.hidden {
-  display: none;
 }
