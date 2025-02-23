@@ -80,13 +80,21 @@ async function LoadBtn() {
   params.page += 1;
   showLoaderBtn();
   checkBtnStatus();
-  console.log(params.page);
-  const result = await findImages(params.query, params.page, params.perPage);
-  createHTML(result.data.hits);
+
+  try {
+    const result = await findImages(params.query, params.page, params.perPage);
+    createHTML(result.data.hits);
+    scrollPage();
+  } catch {
+    hideLoaderBtn();
+    iziToast.error({
+      title: 'ERROR',
+      message: `Failed to load more images! ${error}`,
+      position: 'topRight',
+    });
+  }
 
   hideLoaderBtn();
-
-  scrollPage();
 }
 // ==============================================
 
